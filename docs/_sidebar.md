@@ -11,3 +11,6 @@
   * [COSBench 开发一个适配器](zh-cn/hero/04-adapter-development.md)
   <!--* [COSBench 添加Maven](zh-cn/hero/05-add-maven.md)-->
   <!--* [COSBench 添加Helm Chart](zh-cn/hero/06-add-k8s.md)-->
+  
+* 附录
+  * [COSBench常用测试模型](zh-cn/appendix/awesome-testing-models.md)
