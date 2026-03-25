@@ -1,0 +1,41 @@
+site_name: 简明COSBench教程
+site_description: A Byte of COSBench
+site_url: !ENV [SITE_URL, "http://127.0.0.1:8000/"]
+repo_url: https://github.com/sine-io/byte-of-cosbench
+repo_name: sine-io/byte-of-cosbench
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+
+plugins:
+  - search
+
+exclude_docs: |
+  superpowers/**
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+
+nav:
+  - 首页: index.md
+  - 说明: zh-cn/README.md
+  - 新手村:
+      - COSBench认识、使用、结果分析: zh-cn/zero/01-quickstart.md
+  - 进阶营:
+      - COSBench开发环境配置: zh-cn/hero/02-dev-envs-config.md
+      - COSBench源码分析: zh-cn/hero/03-cosbench-source-code.md
+      - COSBench 开发一个适配器: zh-cn/hero/04-adapter-development.md
+  - 附录:
+      - COSBench常用测试模型: zh-cn/appendix/awesome-testing-models.md
