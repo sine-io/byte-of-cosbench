@@ -22,4 +22,3 @@ python3 -m mkdocs build --strict
 推送到 `main` 后，GitHub Actions 会自动构建并部署文档到 GitHub Pages。
 
 首次启用时，请在仓库 `Settings -> Pages` 中将发布来源设置为 `GitHub Actions`。
-
