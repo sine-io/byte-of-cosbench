@@ -1,6 +1,6 @@
 site_name: 简明COSBench教程
 site_description: A Byte of COSBench
-site_url: https://sine-io.github.io/byte-of-cosbench/
+site_url: !ENV [SITE_URL, "http://127.0.0.1:8000/"]
 repo_url: https://github.com/sine-io/byte-of-cosbench
 repo_name: sine-io/byte-of-cosbench
 
