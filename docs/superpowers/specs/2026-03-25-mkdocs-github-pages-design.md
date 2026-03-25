@@ -109,7 +109,10 @@ The existing content should be updated only where required for correct MkDocs an
 ### Required Adjustments
 
 - Convert the Docsify homepage source from `docs/home.md` to `docs/index.md`.
-- Replace Docsify-specific admonition syntax such as `!>` with Material-compatible admonition syntax.
+- Replace Docsify-specific admonition syntax with Material-compatible admonition syntax.
+- Apply the following deterministic mapping for callouts encountered during migration:
+  - `!>` to `!!! warning`
+  - `?>` to `!!! tip`
 - Verify relative links and image references after the homepage move.
 - Preserve article body content unless a change is required for valid rendering or navigation.
 
@@ -135,13 +138,22 @@ This file should define:
 - Markdown extensions required for admonitions and code rendering
 - Plugins required for search
 
+The expected Markdown extensions should include at least:
+
+- `admonition`
+- `attr_list`
+- `tables`
+- `toc`
+- `pymdownx.details`
+- `pymdownx.superfences`
+
 The canonical site URL should target the GitHub Pages endpoint for this repository:
 
 - `https://sine-io.github.io/byte-of-cosbench/`
 
 ### `requirements.txt`
 
-This file should pin the Python packages needed to build the site in local development and CI. At minimum it should include:
+This file should use exact version pins rather than open ranges so local builds and CI stay reproducible. At minimum it should include:
 
 - `mkdocs`
 - `mkdocs-material`
