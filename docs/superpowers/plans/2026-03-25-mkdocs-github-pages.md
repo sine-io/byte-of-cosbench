@@ -42,7 +42,22 @@
 Run: `python3 -m mkdocs build --strict`
 Expected: FAIL because MkDocs is not installed yet or because `mkdocs.yml` does not exist.
 
-- [ ] **Step 2: Create `requirements.txt` with exact direct pins**
+- [ ] **Step 2: Verify the selected `mkdocs` version exists on PyPI**
+
+Run: `python3 -m pip index versions mkdocs | sed -n '1,3p'`
+Expected: PASS and show `mkdocs (1.6.1)` in the available versions output.
+
+- [ ] **Step 3: Verify the selected `mkdocs-material` version exists on PyPI**
+
+Run: `python3 -m pip index versions mkdocs-material | sed -n '1,3p'`
+Expected: PASS and show `mkdocs-material (9.7.6)` in the available versions output.
+
+- [ ] **Step 4: Verify the selected `pymdown-extensions` version exists on PyPI**
+
+Run: `python3 -m pip index versions pymdown-extensions | sed -n '1,3p'`
+Expected: PASS and show `pymdown-extensions (10.21)` in the available versions output.
+
+- [ ] **Step 5: Create `requirements.txt` with exact direct pins**
 
 ```txt
 mkdocs==1.6.1
@@ -50,12 +65,12 @@ mkdocs-material==9.7.6
 pymdown-extensions==10.21
 ```
 
-- [ ] **Step 3: Install the pinned dependencies**
+- [ ] **Step 6: Install the pinned dependencies**
 
 Run: `python3 -m pip install -r requirements.txt`
 Expected: PASS with the three direct packages installed successfully.
 
-- [ ] **Step 4: Create `mkdocs.yml` with the initial site configuration**
+- [ ] **Step 7: Create `mkdocs.yml` with the initial site configuration**
 
 ```yaml
 site_name: 简明COSBench教程
@@ -98,12 +113,12 @@ nav:
       - COSBench常用测试模型: zh-cn/appendix/awesome-testing-models.md
 ```
 
-- [ ] **Step 5: Run a strict build to confirm the next missing piece is the homepage**
+- [ ] **Step 8: Run a strict build to confirm the next missing piece is the homepage**
 
 Run: `python3 -m mkdocs build --strict`
 Expected: FAIL with a missing file error for `docs/index.md` or the `index.md` nav target.
 
-- [ ] **Step 6: Commit the configuration bootstrap**
+- [ ] **Step 9: Commit the configuration bootstrap**
 
 ```bash
 git add requirements.txt mkdocs.yml
@@ -198,7 +213,19 @@ git commit -m "docs: remove docsify-specific files"
 **Files:**
 - Create: `.github/workflows/docs.yml`
 
-- [ ] **Step 1: Create the GitHub Pages workflow**
+- [ ] **Step 1: Verify the planned GitHub Actions tags exist before writing the workflow**
+
+```bash
+git ls-remote --tags https://github.com/actions/checkout.git refs/tags/v5
+git ls-remote --tags https://github.com/actions/setup-python.git refs/tags/v5
+git ls-remote --tags https://github.com/actions/configure-pages.git refs/tags/v5
+git ls-remote --tags https://github.com/actions/upload-pages-artifact.git refs/tags/v4
+git ls-remote --tags https://github.com/actions/deploy-pages.git refs/tags/v4
+```
+
+Expected: PASS and each command prints a `refs/tags/...` line for the requested major tag.
+
+- [ ] **Step 2: Create the GitHub Pages workflow**
 
 ```yaml
 name: docs
@@ -258,17 +285,17 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-- [ ] **Step 2: Sanity-check the workflow file contents without adding extra tool dependencies**
+- [ ] **Step 3: Sanity-check the workflow file contents without adding extra tool dependencies**
 
 Run: `python3 -c 'import pathlib; text = pathlib.Path(".github/workflows/docs.yml").read_text(); required = ["actions/checkout@v5", "actions/setup-python@v5", "actions/configure-pages@v5", "actions/upload-pages-artifact@v4", "actions/deploy-pages@v4", "workflow_dispatch"]; missing = [item for item in required if item not in text]; assert not missing, missing; print("workflow looks complete")'`
 Expected: PASS and print `workflow looks complete`.
 
-- [ ] **Step 3: Re-run the strict site build so the workflow and site configuration are validated together**
+- [ ] **Step 4: Re-run the strict site build so the workflow and site configuration are validated together**
 
 Run: `python3 -m mkdocs build --strict`
 Expected: PASS.
 
-- [ ] **Step 4: Commit the deployment workflow**
+- [ ] **Step 5: Commit the deployment workflow**
 
 ```bash
 git add .github/workflows/docs.yml
